@@ -1,6 +1,4 @@
 /**
- * https://boards.4channel.org/g/thread/76269680
- *
  *  "I implemented some toy script to make use of multi-threaded programming to
  *  generate and process a million lists
  *  >Python : 30s
