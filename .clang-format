@@ -1,4 +1,10 @@
 ---
 Language: Cpp
 BasedOnStyle: Google
+UseTab: ForContinuationAndIndentation
+IndentWidth: 8
+AccessModifierOffset: -4
+# DerivePointerAlignment: true
+PointerAlignment: Left
+Standard: Auto
 ...
