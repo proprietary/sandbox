@@ -1,22 +1,24 @@
 /*
  * Leetcode 48. Rotate Image
  * You are given an n x n 2D matrix representing an image.
- * 
+ *
  * Rotate the image by 90 degrees (clockwise).
- * 
+ *
  * Note:
- * 
- * You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
- * 
+ *
+ * You have to rotate the image in-place, which means you have to modify the
+ * input 2D matrix directly. DO NOT allocate another 2D matrix and do the
+ * rotation.
+ *
  * Example 1:
- * 
- * Given input matrix = 
+ *
+ * Given input matrix =
  * [
  *   [1,2,3],
  *   [4,5,6],
  *   [7,8,9]
  * ],
- * 
+ *
  * rotate the input matrix in-place such that it becomes:
  * [
  *   [7,4,1],
@@ -24,15 +26,15 @@
  *   [9,6,3]
  * ]
  * Example 2:
- * 
+ *
  * Given input matrix =
  * [
  *   [ 5, 1, 9,11],
  *   [ 2, 4, 8,10],
  *   [13, 3, 6, 7],
  *   [15,14,12,16]
- * ], 
- * 
+ * ],
+ *
  * rotate the input matrix in-place such that it becomes:
  * [
  *   [15,13, 2, 5],
@@ -49,14 +51,11 @@
 
 #include <iostream>
 #include <ostream>
-#include <tuple>
 #include <utility>
 #include <vector>
 
 class Solution {
     public:
-	int move_to(int N, int r, int c);
-
 	std::pair<int, int> destination(int N, int r, int c) {
 		int dest_c = N - r - 1;
 		int dest_r = c;
@@ -65,27 +64,14 @@ class Solution {
 
 	void rotate_in_place(std::vector<std::vector<int>>& matrix) {
 		auto N = matrix.size();
-		int operations = 0;
 		int r = 0, c = 0;
 		int t = matrix[r][c];
 		int start_r = r, start_c = c;
-		int ops = 0;
 		do {
 			while (c < N - r - 1) {
 				do {
 					std::tie(r, c) = destination(N, r, c);
-					/*
-					std::cout << "r_dest,c_dest == " <<
-					r_dest << ',' << c_dest << std::endl;
-					std::cout << "moving " << t << " to ("
-					<< r_dest << ',' << c_dest << ')' <<
-					std::endl;
-					*/
 					std::swap(matrix[r][c], t);
-					++ops;
-					if (ops >= N * N) {
-						return;
-					}
 				} while (!(r == start_r && c == start_c));
 				++c;
 				start_c = c;
@@ -109,15 +95,12 @@ class Solution {
 		for (int r = 0; r < N; ++r) {
 			for (int c = 0; c < N; ++c) {
 				copy[r][c] = matrix[N - 1 - c][r];
-				// auto [ q, w ] = destination(N, r, c);
-				// copy[r][c] = matrix[q][w];
 			}
 		}
 		matrix = std::move(copy);
 	}
 
 	void rotate(std::vector<std::vector<int>>& matrix) {
-		// rotate_copy(matrix);
 		rotate_in_place(matrix);
 	}
 };
