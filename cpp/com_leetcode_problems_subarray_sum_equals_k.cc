@@ -3,40 +3,23 @@
 #include <cstdio>
 #include <utility>
 #include <vector>
-#include <numeric>
-#include <functional>
 #include <chrono>
 #include <unordered_map>
 
 class Solution {
-private:
-	// For every V indexed by K, V is an sum of numbers from 0 upto and including K
-	std::vector<int> partial_sums_;
-
-	// Create table of inclusive sums
-	void init_partial_sums(std::vector<int> const& nums) {
-		if (nums.size() == 0)
-			return;
-		partial_sums_.resize(nums.size() + 1);
-		partial_sums_[0] = nums[0];
-		for (int i = 1; i <= nums.size(); ++i) {
-			partial_sums_[i] = partial_sums_[i - 1] + nums[i - 1];
-		}
-	}
-
 public:
 	int subarraySum(std::vector<int>& nums, int k) {
-		init_partial_sums(nums);
+		std::unordered_map<int, int> sums;
+		sums.reserve(nums.size());
+		sums[0] = 1;
 		int count = 0;
+		int sum = 0;
 		for (auto i = 0; i < nums.size(); ++i) {
-			for (auto j = i + 1; j <= nums.size(); ++j) {
-				// sum(i, j) = sum(0, j) - sum(0, i)	
-				auto result = partial_sums_[j] - partial_sums_[i];
-				// ::printf("(%d, %d): sum = %d\n", i, j, result);
-				if (result == k) {
-					count += 1;
-				}
+			sum += nums[i];
+			if (sums.find(sum - k) != sums.end()) {
+				count += sums[sum - k];
 			}
+			sums[sum] += 1;
 		}
 		return count;
 	}
