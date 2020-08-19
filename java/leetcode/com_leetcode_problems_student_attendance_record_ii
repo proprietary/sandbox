@@ -1,0 +1,37 @@
+#!/usr/bin/env -S java -ea --source 14
+
+public class Solution {
+	public boolean checkRecord(String s) {
+		int absences = 0;
+		for (int i = 0; i < s.length(); ++i) {
+			switch (s.charAt(i)) {
+			case 'L':
+				char prev = '\0', prevPrev = '\0';
+				try {
+					prev = s.charAt(i - 1);
+					prevPrev = s.charAt(i - 2);
+				} catch (IndexOutOfBoundsException e) {
+					continue;
+				}
+				if (prev == prevPrev && prev == 'L') {
+					return false;
+				}
+				break;
+			case 'A':
+				if (++absences > 1) {
+					return false;
+				}
+				break;
+			case 'P':
+				continue;
+			}
+		}
+		return true;
+	}
+
+	public static void main(String[] args) {
+		var s = new Solution();
+		assert true == s.checkRecord("PPALLP");
+		assert false == s.checkRecord("PPALLL");
+	}
+}
