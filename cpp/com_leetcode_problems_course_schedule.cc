@@ -4,6 +4,10 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cassert>
+#include <unordered_set>
+#include <deque>
+#include <stack>
 
 void merge(std::vector<int>& a, std::vector<int>& b) {
 	a.reserve(a.size() + b.size());
@@ -12,7 +16,8 @@ void merge(std::vector<int>& a, std::vector<int>& b) {
 	a.erase(std::unique(a.begin(), a.end()), a.end());
 }
 
-auto print_container(std::vector<int>& a) -> std::string {
+template<typename ContainerT>
+auto print_container(ContainerT& a) -> std::string {
 	std::ostringstream ss;
 	ss << "[ ";
 	for (auto n : a) {
@@ -64,38 +69,78 @@ public:
 		if (prerequisites.size() == 0) {
 			return true;
 		}
-		Graph G;
-        for (size_t i = 0; i < prerequisites.size(); ++i) {
-			if (prerequisites[i].size() > 1) {
-				auto v = prerequisites[i][0];
-				auto w = prerequisites[i][1];
-				if (G.adj.size() < std::max(v, w) + 1) {
-					G.adj.resize(std::max(v, w) + 1);
+		std::vector<std::vector<int>> adj;
+		adj.resize(numCourses);
+		// Build adjacency list
+		for (size_t i = 0; i < prerequisites.size(); ++i) {
+			assert(prerequisites[i].size() == 2);
+			auto v = prerequisites[i][0];
+			auto w = prerequisites[i][1];
+			auto required_size = std::max(v, w) + 1;
+			if (adj.size() < required_size) {
+				adj.resize(required_size);
+			}
+			adj[v].push_back(w);
+		}
+		// std::cout << "adjacency list:\n";
+		// for (int i = 0; i < adj.size(); ++i) {
+		// 	std::cout << "\tadj[" << i << "]: " << print_container(adj[i]);
+		// }
+		std::unordered_set<int> takeable_courses;
+		for (int course_number = 0; course_number < numCourses; ++course_number) {
+			if (adj[course_number].size() == 0) {
+				// std::cout << "no prerequisites for course " << course_number << std::endl;
+				takeable_courses.insert(course_number);
+			} else if (takeable_courses.find(course_number) == takeable_courses.end()) {
+				std::stack<int> frontier;
+				std::for_each(adj[course_number].begin(), adj[course_number].end(), [&frontier](auto v) {
+					frontier.push(v);
+				});
+				bool cyclic = false;
+				std::vector<bool> on_stack(adj.size(), false);
+				std::vector<bool> visited(adj.size(), false);
+				visited[course_number] = true;
+				on_stack[course_number] = true;
+				while (!frontier.empty()) {
+					int c = frontier.top();
+					if (!visited[c]) {
+						visited[c] = true;
+						on_stack[c] = true;
+					} else {
+						on_stack[c] = false;
+						frontier.pop();
+					}
+					for (auto const& v : adj[c]) {
+						if (!visited[v]) {
+							frontier.push(v);
+						} else if (on_stack[v]) {
+							cyclic = true;
+							break;
+						}
+					}
 				}
-				// std::cout << "G size: " << G.adj.size() << std::endl;
-				G.adj[v].push_back(w);
+				if (!cyclic) {
+					// std::cout << "no cycle found. adding..." << print_container(visited);
+					for (size_t i = 0; i < visited.size(); ++i) {
+						if (visited[i]) {
+							takeable_courses.insert(i);
+						}
+					}
+				} else {
+					// std::cout << "cycle found " << print_container(visited);
+				}
 			}
 		}
-		std::vector<int> takeable_courses;
-		bool any_cycle = false;
-		for (size_t i = 0; i < G.size(); ++i) {
-			std::cout << "G.adj[" << i << "]: " << print_container(G.adj[i]);
-			auto a = G.analyze_path(i);
-			if (a.has_cycle) {
-				any_cycle = true;
-				std::cout << "detected cycle at " << i << std::endl;
-			}
-			merge(takeable_courses, a.vertices);
-		}
-		std::cout << takeable_courses.size() << std::endl;
-		std::cout << "takeable_courses: " << print_container(takeable_courses);
-		std::cout << "any_cycle: " << any_cycle << std::endl;
-		// std::cout << "adj: " << print_container(G.adj);
-		return (G.size() < numCourses) || takeable_courses.size() >= numCourses;
+		// std::cout << "takeable_courses: " << print_container(takeable_courses);
+		return takeable_courses.size() == numCourses;
     }
 };
 
 #include <gtest/gtest.h>
+
+bool testCase(int n, std::vector<std::vector<int>> v) {
+	return Solution().canFinish(n, v);
+}
 
 TEST(Test, Test1) {
 	Solution s;
@@ -137,4 +182,20 @@ TEST(Test, Test10) {
 	Solution s;
 	std::vector<std::vector<int>> a = {{1,0},{2,6},{1,7},{6,4},{7,0},{0,5}};
 	ASSERT_EQ(true, s.canFinish(8, a));
+}
+
+TEST(Test, Test11) {
+	Solution s;
+	std::vector<std::vector<int>> a = {{1,0},{0,2},{2,1}};
+	ASSERT_EQ(false, s.canFinish(3, a));
+}
+
+TEST(Test, Test12) {
+	Solution s;
+	std::vector<std::vector<int>> a = {{0,2},{1,2},{2,0}};
+	ASSERT_EQ(false, s.canFinish(3, a));
+}
+
+TEST(Test, Test13) {
+	ASSERT_EQ(false, testCase(4, {{0,1},{3,1},{1,3},{3,2}}));
 }
