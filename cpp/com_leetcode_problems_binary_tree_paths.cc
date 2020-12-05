@@ -6,14 +6,16 @@ struct TreeNode {
 	TreeNode *right;
 	TreeNode() : val(0), left(nullptr), right(nullptr) {}
 	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+	TreeNode(int x, TreeNode *left, TreeNode *right)
+	    : val(x), left(left), right(right) {}
 };
 
 class Solution {
-private:
+    private:
 	std::vector<std::string> all_paths;
-public:
-	void paths(TreeNode* node, std::string path) {
+
+    public:
+	void paths(TreeNode *node, std::string path) {
 		if (node->left == nullptr && node->right == nullptr) {
 			path.append("->");
 			path.append(std::to_string(node->val));
@@ -29,7 +31,7 @@ public:
 			paths(node->right, new_path);
 		}
 	}
-	std::vector<std::string> binaryTreePaths(TreeNode* root) {
+	std::vector<std::string> binaryTreePaths(TreeNode *root) {
 		if (root == nullptr) {
 			return {};
 		}
@@ -72,21 +74,19 @@ public:
 	// 			}
 	// 			// use this node
 	// 			ancestors.push_back(node);
-	// 			if (node->left == nullptr && node->right == nullptr) {
-	// 				std::ostringstream s;
-	// 				auto a = ancestors.begin();
-	// 				if (a != ancestors.end()) {
-	// 					s << std::to_string((*a)->val);
+	// 			if (node->left == nullptr && node->right == nullptr)
+	// { 				std::ostringstream s; 				auto a = ancestors.begin(); 				if (a !=
+	// ancestors.end()) { 					s << std::to_string((*a)->val);
 	// 				}
 	// 				std::advance(a, 1);
 	// 				for (; a != ancestors.end(); ++a) {
-	// 					s << "->" << std::to_string((*a)->val);
+	// 					s << "->" <<
+	// std::to_string((*a)->val);
 	// 				}
 	// 				paths.emplace_back(s.str());
 	// 				TreeNode* b = ancestors.back();
-	// 				while (!ancestors.empty() && visited.find(b) != visited.end()) {
-	// 					ancestors.pop_back();
-	// 					b = ancestors.back();
+	// 				while (!ancestors.empty() && visited.find(b) !=
+	// visited.end()) { 					ancestors.pop_back(); 					b = ancestors.back();
 	// 				}
 	// 			}
 	// 		}
