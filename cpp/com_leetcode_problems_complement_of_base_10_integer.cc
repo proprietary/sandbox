@@ -7,21 +7,20 @@ public:
 		if (n == 0) {
 			return 1;
 		}
-        int n_bits = 0;
-        for (int n_ = n; n_ > 0; n_ /= 2) {
-            n_bits++;
+		int m = 0;
+		int o = n;
+        for (; o > 0; o /= 2) {
+			m = m << 1 | 1;
         }
-		std::cout << "n_bits: " << n_bits << std::endl;
-        int o = 0;
-        for (int m = 0; m < n_bits; m++) {
-            o += 1 << m;
-        }
-		std::cout << "o: " << o << std::endl;
-        return n ^ o;
+		// std::cout << "o: " << o << std::endl << "m: " << m << std::endl;
+        return n ^ m;
     }
 };
 
 TEST(Leetcode, TestExample1) {
 	Solution s{};
 	EXPECT_EQ(2, s.bitwiseComplement(5));
+	EXPECT_EQ(0, s.bitwiseComplement(7));
+	EXPECT_EQ(5, s.bitwiseComplement(10));
+	EXPECT_EQ(1, s.bitwiseComplement(0));
 }
