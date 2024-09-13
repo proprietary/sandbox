@@ -6,9 +6,15 @@
 
 #include "utils.hpp"
 
-enum class Direction { RIGHT, DOWN, LEFT, UP };
+template <typename T, size_t N>
+constexpr size_t sizeof_array(T (&arr)[N]) {
+  return N;
+}
 
 class Solution {
+  static constexpr int EMPTY = -1;
+  static constexpr int8_t DIRECTIONS[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
   public:
   Solution() {
     std::ios::sync_with_stdio(false);
@@ -16,56 +22,20 @@ class Solution {
     std::cin.tie(nullptr);
   }
   std::vector<std::vector<int>> spiralMatrix(int m, int n, ListNode* head) {
-    std::vector<std::vector<int>> ans(m, std::vector<int>(n, -1));
+    std::vector<std::vector<int>> ans(m, std::vector<int>(n, EMPTY));
+    int8_t current_direction = 0;
     int row = 0, col = 0;
-    Direction last_direction = Direction::RIGHT;
     for (ListNode* p = head; p != nullptr; p = p->next) {
       ans[row][col] = p->val;
-      // print_2d_array(ans.begin(), ans.end());
-      bool right = col < n - 1 && ans[row][col + 1] == -1;
-      bool down = row < m - 1 && ans[row + 1][col] == -1;
-      bool left = col > 0 && ans[row][col - 1] == -1;
-      bool up = row > 0 && ans[row - 1][col] == -1;
-      switch (last_direction) {
-        case Direction::RIGHT:
-          if (right) {
-            col++;
-            goto skip;
-          }
-          break;
-        case Direction::DOWN:
-          if (down) {
-            row++;
-            goto skip;
-          }
-          break;
-        case Direction::LEFT:
-          if (left) {
-            col--;
-            goto skip;
-          }
-          break;
-        case Direction::UP:
-          if (up) {
-            row--;
-            goto skip;
-          }
-          break;
+
+      int new_row = row + DIRECTIONS[current_direction][0];
+      int new_col = col + DIRECTIONS[current_direction][1];
+      if (new_row < 0 || new_col < 0 || new_row >= m || new_col >= n ||
+          ans[new_row][new_col] != EMPTY) {
+        current_direction = (current_direction + 1) % sizeof_array(DIRECTIONS);
       }
-      if (right) {
-        col++;
-        last_direction = Direction::RIGHT;
-      } else if (down) {
-        row++;
-        last_direction = Direction::DOWN;
-      } else if (left) {
-        col--;
-        last_direction = Direction::LEFT;
-      } else if (up) {
-        row--;
-        last_direction = Direction::UP;
-      }
-    skip:
+      row += DIRECTIONS[current_direction][0];
+      col += DIRECTIONS[current_direction][1];
     }
     return ans;
   }
