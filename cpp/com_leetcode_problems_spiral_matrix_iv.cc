@@ -6,11 +6,6 @@
 
 #include "utils.hpp"
 
-template <typename T, size_t N>
-constexpr size_t sizeof_array(T (&arr)[N]) {
-  return N;
-}
-
 class Solution {
   static constexpr int EMPTY = -1;
   static constexpr int8_t DIRECTIONS[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
@@ -44,10 +39,20 @@ class Solution {
 TEST(Test, Example1) {
   int m = 3, n = 5;
   std::vector<int> input = {3, 0, 2, 6, 8, 1, 7, 9, 4, 2, 5, 5, 0};
-  ListNode* head = newList(input);
-  Solution s;
-  auto ans = s.spiralMatrix(m, n, head);
+  auto ans = Solution().spiralMatrix(m, n, newList(input));
   std::vector<std::vector<int>> expected = {
       {3, 0, 2, 6, 8}, {5, 0, -1, -1, 1}, {5, 2, 4, 9, 7}};
   EXPECT_EQ(ans, expected);
+}
+
+TEST(Test, Example2) {
+  int m = 4, n = 5;
+  std::vector<int> input = {515, 942, 528, 483, 20,  159, 868, 999, 474,
+                            320, 734, 956, 12,  124, 224, 252, 909, 732};
+  auto actual = Solution().spiralMatrix(m, n, newList(input));
+  std::vector<std::vector<int>> expected = {{515, 942, 528, 483, 20},
+                                            {124, 224, 252, 909, 159},
+                                            {12, -1, -1, 732, 868},
+                                            {956, 734, 320, 474, 999}};
+  EXPECT_EQ(actual, expected);
 }

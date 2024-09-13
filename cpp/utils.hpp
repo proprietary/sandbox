@@ -3,6 +3,12 @@
 #include <iostream>
 #include <vector>
 
+
+template <typename T, size_t N>
+constexpr size_t sizeof_array(T (&arr)[N]) {
+  return N;
+}
+
 template<typename It>
 void print_array(It begin, It end);
 
