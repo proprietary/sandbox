@@ -1,0 +1,8 @@
+cc_test(
+    name = "spiral_matrix_iv",
+    copts = ["-std=c++20"],
+    srcs = ["com_leetcode_problems_spiral_matrix_iv.cc", "utils.hpp"],
+    deps = [
+        "@googletest//:gtest_main"
+    ]
+)
