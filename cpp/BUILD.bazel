@@ -6,3 +6,9 @@ cc_test(
         "@googletest//:gtest_main"
     ]
 )
+
+cc_binary(
+    name = "cxx20_concepts",
+    copts = ["-std=c++20"],
+    srcs = ["cxx20_concepts.cc"],
+)
