@@ -12,3 +12,42 @@ cc_binary(
     copts = ["-std=c++20"],
     srcs = ["cxx20_concepts.cc"],
 )
+
+cc_test(
+    name = "longest_substring_vowels",
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    srcs = [
+        "com_leetcode_problems_longest_substring_vowels.cc",
+        "utils.hpp",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+    ]
+)
+
+cc_test(
+    name = "longest_subarray_with_max_bitwise_and",
+    srcs = [
+        "com_leetcode_problems_longest_subarray_with_max_bitwise_and.cc"
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+    ],
+)
