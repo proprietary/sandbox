@@ -1,2 +1,3 @@
+mod com_leetcode_problems_number_of_atoms;
 mod com_leetcode_problems_two_sum;
 mod com_leetcode_problems_valid_parentheses;
