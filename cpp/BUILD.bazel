@@ -1,3 +1,10 @@
+cc_library(
+    name = "test_case_helper",
+    copts = ["-std=c++20"],
+    srcs = ["test_case_helper.hpp", "test_case_helper.cc"],
+    hdrs = ["test_case_helper.hpp"],
+)
+
 cc_test(
     name = "spiral_matrix_iv",
     copts = ["-std=c++20"],
@@ -145,5 +152,45 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "max_points",
+    srcs = [
+        "com_leetcode_problems_max_points.cc",
+        "utils.hpp"
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "text_justification",
+    srcs = [
+        "com_leetcode_problems_text_justification.cc",
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "//:test_case_helper",
     ],
 )
