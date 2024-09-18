@@ -244,39 +244,38 @@
 #include <string>
 
 class Solution {
-    public:
-	bool expectNoneOf(std::string::const_iterator begin,
-			  std::string::const_iterator end, int test(int)) {
-		for (auto it = begin; it != end; ++it) {
-			if (test(*it)) {
-				return false;
-			}
-		}
-		return true;
-	}
+  public:
+  bool expectNoneOf(std::string::const_iterator begin,
+                    std::string::const_iterator end, int test(int)) {
+    for (auto it = begin; it != end; ++it) {
+      if (test(*it)) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-	bool detectCapitalUse(std::string word) {
-		auto it = word.begin();
-		if (std::isupper(*it)) {
-			it++;
-			if (it == word.end()) {
-				return true;
-			}
-			if (std::isupper(*it)) {
-				return expectNoneOf(it, word.end(),
-						    &std::islower);
-			}
-			return expectNoneOf(it, word.end(), &std::isupper);
-		} else {
-			return expectNoneOf(it, word.end(), &std::isupper);
-		}
-	}
+  bool detectCapitalUse(std::string word) {
+    auto it = word.begin();
+    if (std::isupper(*it)) {
+      it++;
+      if (it == word.end()) {
+        return true;
+      }
+      if (std::isupper(*it)) {
+        return expectNoneOf(it, word.end(), &std::islower);
+      }
+      return expectNoneOf(it, word.end(), &std::isupper);
+    } else {
+      return expectNoneOf(it, word.end(), &std::isupper);
+    }
+  }
 };
 
 TEST(T, T) {
-	Solution s;
-	ASSERT_EQ(s.detectCapitalUse("USA"), true);
-	ASSERT_EQ(s.detectCapitalUse("leetcode"), true);
-	ASSERT_EQ(s.detectCapitalUse("Google"), true);
-	ASSERT_EQ(s.detectCapitalUse("FlaG"), false);
+  Solution s;
+  ASSERT_EQ(s.detectCapitalUse("USA"), true);
+  ASSERT_EQ(s.detectCapitalUse("leetcode"), true);
+  ASSERT_EQ(s.detectCapitalUse("Google"), true);
+  ASSERT_EQ(s.detectCapitalUse("FlaG"), false);
 }

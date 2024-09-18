@@ -6,7 +6,7 @@
 #include <string>
 
 class Solution {
- public:
+  public:
   int lengthOfLastWord(std::string s) {
     int length = 0;
     auto it = s.rbegin();

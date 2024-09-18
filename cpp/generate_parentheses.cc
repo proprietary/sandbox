@@ -31,7 +31,7 @@
  * incrementing an integer, not by shuffling strings around.
  */
 class Solution {
- public:
+  public:
   enum class Paren {
     OPEN = 0,
     CLOSE = 1,

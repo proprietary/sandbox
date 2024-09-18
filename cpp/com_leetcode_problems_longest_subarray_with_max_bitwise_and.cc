@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 
 #include <algorithm>
+#include <iterator>
 #include <unordered_map>
 #include <vector>
-#include <iterator>
 
 class Solution {
   public:
@@ -15,8 +15,7 @@ class Solution {
 
   int longestSubarray(std::vector<int>& nums) {
     int ans = 1;
-    const auto highest =
-      std::max_element(nums.begin(), nums.end());
+    const auto highest = std::max_element(nums.begin(), nums.end());
     for (auto i = highest; i != nums.end(); ++i) {
       auto j = i;
       while (j != nums.end() && *highest == *j) {

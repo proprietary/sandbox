@@ -29,7 +29,7 @@
 #include <vector>
 
 class Solution {
- public:
+  public:
   // First attempt:
   // Sort then find the first discrepancy while iterating with a stride of 2
   // 	int singleNumber(std::vector<int>& nums) {

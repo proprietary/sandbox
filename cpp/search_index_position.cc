@@ -33,7 +33,7 @@
 #include <vector>
 
 class Solution {
- public:
+  public:
   int searchInsert(std::vector<int>& nums, int target) {
     int hi = nums.size() - 1;
     int lo = 0;

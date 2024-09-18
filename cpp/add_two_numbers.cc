@@ -53,7 +53,7 @@ struct ListNode {
 };
 
 class Solution {
- public:
+  public:
   ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
     if (l1 == nullptr || l2 == nullptr) return nullptr;
     int carry = 0;

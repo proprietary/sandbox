@@ -6,7 +6,7 @@
 #include <vector>
 
 class Solution1 {
- public:
+  public:
   std::unordered_map<int, int> memo_table;
 
   int climbStairs(int n) {
@@ -23,7 +23,7 @@ class Solution1 {
 };
 
 class Solution2 {
- public:
+  public:
   int climbStairs(int n) {
     std::vector<int> xs{};
     xs.resize(n + 1);
