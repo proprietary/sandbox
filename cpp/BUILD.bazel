@@ -1,4 +1,11 @@
 cc_library(
+    name = "utils",
+    copts = ["-std=c++20"],
+    srcs = ["utils.hpp"],
+    hdrs = ["utils.hpp"],
+)
+
+cc_library(
     name = "test_case_helper",
     copts = ["-std=c++20"],
     srcs = ["test_case_helper.hpp", "test_case_helper.cc"],
@@ -179,6 +186,26 @@ cc_test(
     name = "text_justification",
     srcs = [
         "com_leetcode_problems_text_justification.cc",
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "//:test_case_helper",
+    ],
+)
+
+cc_test(
+    name = "contiguous_array",
+    srcs = [
+        "com_leetcode_problems_contiguous_array.cc",
     ],
     copts = [
         "-std=c++20",
