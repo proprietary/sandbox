@@ -283,3 +283,24 @@ cc_test(
         "//:utils",
     ],
 )
+
+cc_test(
+    name = "lexicographical_numbers",
+    srcs = [
+        "com_leetcode_problems_lexicographical_numbers.cc",
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "//:test_case_helper",
+        "//:utils",
+    ],
+)
