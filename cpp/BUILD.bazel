@@ -304,3 +304,23 @@ cc_test(
         "//:utils",
     ],
 )
+
+cc_test(
+    name = "zigzag_conversion",
+    srcs = [
+        "com_leetcode_problems_zigzag_conversion.cc",
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "//:test_case_helper",
+    ],
+)
