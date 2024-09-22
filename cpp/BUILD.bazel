@@ -324,3 +324,23 @@ cc_test(
         "//:test_case_helper",
     ],
 )
+
+cc_test(
+    name = "count_of_smaller_numbers_after_self",
+    srcs = [
+        "com_leetcode_problems_count_of_smaller_numbers_after_self.cc",
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "//:test_case_helper",
+    ],
+)
