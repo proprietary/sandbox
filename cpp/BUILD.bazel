@@ -344,3 +344,23 @@ cc_test(
         "//:test_case_helper",
     ],
 )
+
+cc_test(
+    name = "kth_smallest_in_lexicographical_order",
+    srcs = [
+        "com_leetcode_problems_kth_smallest_in_lexicographical_order.cc",
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "//:test_case_helper",
+    ],
+)
