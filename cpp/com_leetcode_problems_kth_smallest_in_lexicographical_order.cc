@@ -17,8 +17,7 @@ class Solution {
   int64_t calc_steps(int64_t n, int64_t c, int64_t s) {
     int64_t steps = 0;
     while (c <= n) {
-      steps +=
-	  std::min(n + 1, s) - c;
+      steps += std::min(n + 1, s) - c;
       c *= 10;
       s *= 10;
     }
@@ -32,11 +31,11 @@ class Solution {
     while (k > 0) {
       int64_t steps = calc_steps(n, cur, cur + 1);
       if (steps <= k) {
-	cur += 1;
-	k -= steps;
+        cur += 1;
+        k -= steps;
       } else {
-	cur *= 10;
-	k -= 1;
+        cur *= 10;
+        k -= 1;
       }
     }
     return cur;
@@ -47,12 +46,12 @@ class Solution {
     uint64_t num = 1;
     for (; count < k; count++) {
       if (num * 10 <= n) {
-	num *= 10;
+        num *= 10;
       } else {
-	while (num % 10 == 9 || num == n) {
-	  num /= 10;
-	}
-	num++;
+        while (num % 10 == 9 || num == n) {
+          num /= 10;
+        }
+        num++;
       }
     }
     return num;
@@ -106,8 +105,8 @@ auto parse_test_cases() {
   auto cases = partition_test_cases(input, 3);
   for (auto c : cases) {
     tvs.push_back(TestVec{.n = std::stoi(c[0]),
-			  .k = std::stoi(c[1]),
-			  .expected = std::stoi(c[2])});
+                          .k = std::stoi(c[1]),
+                          .expected = std::stoi(c[2])});
   }
   return ::testing::ValuesIn(tvs);
 }
