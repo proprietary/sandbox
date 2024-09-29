@@ -384,3 +384,45 @@ cc_test(
         "//:test_case_helper",
     ],
 )
+
+cc_test(
+    name = "my_calendar_1",
+    srcs = [
+        "com_leetcode_problems_my_calendar_1.cc",
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "//:test_case_helper",
+        "//:utils",
+    ],
+)
+
+cc_test(
+    name = "my_calendar_2",
+    srcs = [
+        "com_leetcode_problems_my_calendar_2.cc",
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "//:test_case_helper",
+        "//:utils",
+    ],
+)
