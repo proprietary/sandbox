@@ -1,3 +1,4 @@
+mod com_leetcode_problems_find_the_longest_common_prefix;
 mod com_leetcode_problems_number_of_atoms;
 mod com_leetcode_problems_three_sum;
 mod com_leetcode_problems_two_sum;
