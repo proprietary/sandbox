@@ -485,3 +485,24 @@ cc_test(
         "//:test_case_helper"
     ],
 )
+
+cc_test(
+    name = "divide_players_into_teams_of_equal_skill",
+    srcs = [
+        "com_leetcode_problems_divide_players_into_teams_of_equal_skill.cc",
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "//:test_case_helper",
+        "//:utils",
+    ],
+)
