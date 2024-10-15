@@ -44,3 +44,16 @@ std::vector<std::vector<std::string>> partition_test_cases(
   }
   return test_cases;
 }
+
+auto operator==(const ListElementNode<int>& lhs,
+                const ListElementNode<int>& rhs) -> bool {
+  if (lhs.value.size() != rhs.value.size()) {
+    return false;
+  }
+  for (size_t i = 0; i < lhs.value.size(); i++) {
+    if (lhs.value[i] != rhs.value[i]) {
+      return false;
+    }
+  }
+  return true;
+}

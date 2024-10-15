@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
+#include <variant>
 #include <vector>
 
 template <typename D, typename T>
@@ -36,12 +37,12 @@ class VecParser {
     consume();  // consume '['
     while (peek() != ']' && peek() != '\0') {
       if (peek() == '[') {
-	subvec.push_back(parse_subvec());
+    subvec.push_back(parse_subvec());
       } else {
-	subvec.push_back(parse_value());
-	if (peek() == ',') {
-	  consume();
-	}
+    subvec.push_back(parse_value());
+    if (peek() == ',') {
+      consume();
+    }
       }
     }
     consume();  // consume ']'
@@ -56,7 +57,7 @@ class VecParser {
     while (peek() != ']' && peek() != '\0') {
       vec_.push_back(parse_value());
       if (peek() == ',') {
-	consume();
+    consume();
       }
     }
     consume();  // consume ']'
@@ -137,7 +138,7 @@ class NestedVecParser {
   private:
   constexpr void skipWhitespace() {
     while (pos < str.size() &&
-	   std::isspace(static_cast<unsigned char>(str[pos]))) {
+       std::isspace(static_cast<unsigned char>(str[pos]))) {
       ++pos;
     }
   }
@@ -177,7 +178,7 @@ class NestedVecParser {
     int value = 0;
     bool has_digits = false;
     while (pos < str.size() &&
-	   std::isdigit(static_cast<unsigned char>(str[pos]))) {
+       std::isdigit(static_cast<unsigned char>(str[pos]))) {
       has_digits = true;
       value = value * 10 + (str[pos++] - '0');
     }
@@ -199,16 +200,78 @@ class NestedVecParser {
       elements.push_back(parseNode<T, Depth - 1>());
       skipWhitespace();
       if (match(',')) {
-	continue;
+    continue;
       } else if (match(']')) {
-	break;
+    break;
       } else {
-	throw std::runtime_error("Expected ',' or ']'");
+    throw std::runtime_error("Expected ',' or ']'");
       }
     }
     return elements;
   }
 };
+
+template <typename T>
+class ListElementNode {
+public:
+  using value_type = std::vector<std::variant<std::vector<ListElementNode>, T>>;
+  value_type value;
+
+  const std::vector<ListElementNode>& as_vec() const {
+    return std::get<std::vector<ListElementNode>>(value);
+  }
+
+  const T& as_value() const { return std::get<T>(value); }
+
+  template <typename V>
+  auto operator==(const std::vector<V>& other) {
+    if (std::holds_alternative<T>(value)) {
+      return false;
+    }
+    if (as_vec().size() != other.size()) {
+      return false;
+    }
+    for (size_t i = 0; i < other.size(); i++) {
+      if (std::holds_alternative<T>(as_vec()[i].value) && as_vec()[i].as_value() != other[i]) {
+        return false;
+      }
+      if (as_vec()[i].as_vec() != other[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  ListElementNode(T v) : value(v) {}
+  ListElementNode(std::vector<ListElementNode> v) : value(std::move(v)) {}
+};
+
+template <typename T, DeserializerFn<T> Deser>
+auto parse_list(std::string_view str) -> std::vector<ListElementNode<T>>  {
+  Deser deserializer;
+  std::vector<ListElementNode<T>> result;
+  auto it = str.begin();
+  auto end = str.end();
+  if (*it++ != '[') {
+    throw std::runtime_error("Expected '['");
+  }
+  while (it != end && *it != ']') {
+    if (*it == '[') {
+      result.emplace_back(parse_list<T, Deser>(std::string_view{it, end}));
+      it++;
+    } else {
+      auto comma = std::find(it, end, ',');
+      if (comma == end) {
+        throw std::runtime_error("Expected ',' or ']'");
+      }
+      result.emplace_back(deserializer.deserialize(std::string_view{it, comma}));
+      it = comma + 1;
+    }
+  }
+}
+
+auto operator==(const ListElementNode<int>& lhs,
+                const ListElementNode<int>& rhs) -> bool;
 
 // template <typename T, std::size_t N>
 // constexpr auto operator""_nested_vector(const char (&str)[N]) {
