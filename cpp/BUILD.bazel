@@ -586,3 +586,22 @@ cc_test(
         "@googletest//:gtest_main",
     ],
 )
+
+cc_test(
+    name = "separate_black_and_white_balls",
+    srcs = [
+        "com_leetcode_problems_separate_black_and_white_balls.cc",
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+    ],
+)
