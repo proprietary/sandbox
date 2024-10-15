@@ -546,3 +546,43 @@ cc_test(
         "//:test_case_helper",
     ],
 )
+
+cc_test(
+    name = "maximum_width_ramp",
+    srcs = [
+        "com_leetcode_problems_maximum_width_ramp.cc",
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "//:test_case_helper",
+        "@fmt//:fmt",
+    ],
+)
+
+cc_test(
+    name = "smallest_unoccupied_chair",
+    srcs = [
+        "com_leetcode_problems_smallest_unoccupied_chair.cc",
+    ],
+    copts = [
+        "-std=c++20",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+    ],
+)
