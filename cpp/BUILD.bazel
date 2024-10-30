@@ -624,3 +624,22 @@ cc_test(
         "@googletest//:gtest_main",
     ],
 )
+
+cc_test(
+    name = "remove_subfolders",
+    srcs = [
+        "com_leetcode_problems_remove_subfolders_from_the_filesystem.cc",
+    ],
+    copts = [
+        "-std=c++23",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+    ],
+)
