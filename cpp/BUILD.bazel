@@ -643,3 +643,23 @@ cc_test(
         "@googletest//:gtest_main",
     ],
 )
+
+cc_test(
+    name = "min_removals_to_make_mountain_array",
+    srcs = [
+        "com_leetcode_problems_min_removals_to_make_mountain_array.cc",
+    ],
+    copts = [
+        "-std=c++23",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "@fmt//:fmt",
+    ],
+)
