@@ -41,7 +41,10 @@ void print_2d_array(It begin, It end) {
 
 template <PrintableMap T>
 void print_map(const T& m) {
-  print_array(m.begin(), m.end(), [](const auto x) { return "(" + std::to_string(x->first) + ", " + std::to_string(x->second) + ")"; });
+  print_array(m.begin(), m.end(), [](const auto x) {
+    return "(" + std::to_string(x->first) + ", " + std::to_string(x->second) +
+           ")";
+  });
 }
 
 template <PrintableArray T>
