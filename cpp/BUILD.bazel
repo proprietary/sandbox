@@ -8,8 +8,17 @@ cc_library(
 cc_library(
     name = "test_case_helper",
     copts = ["-std=c++20"],
-    srcs = ["test_case_helper.hpp", "test_case_helper.cc"],
-    hdrs = ["test_case_helper.hpp"],
+    srcs = [
+        "test_case_helper.hpp",
+        "test_case_helper.cc",
+        "tree_node.hpp",
+        "tree_node.cc",
+        "arena.hpp",
+    ],
+    hdrs = [
+        "test_case_helper.hpp",
+        "tree_node.hpp",
+    ],
 )
 
 cc_test(
@@ -661,5 +670,26 @@ cc_test(
     deps = [
         "@googletest//:gtest_main",
         "@fmt//:fmt",
+    ],
+)
+
+cc_test(
+    name = "kth_largest_sum_in_binary_tree",
+    srcs = [
+        "com_leetcode_problems_kth_largest_sum_in_binary_tree.cc",
+    ],
+    copts = [
+        "-std=c++23",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "@fmt//:fmt",
+        "//:test_case_helper",
     ],
 )
