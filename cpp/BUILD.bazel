@@ -709,3 +709,24 @@ cc_test(
         "//:test_case_helper",
     ],
 )
+
+cc_test(
+    name = "beautiful_binary_string",
+    srcs = [
+        "com_leetcode_problems_beautiful_binary_string.cc",
+    ],
+    copts = [
+        "-std=c++23",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "@fmt//:fmt",
+        "//:test_case_helper",
+    ],
+)
