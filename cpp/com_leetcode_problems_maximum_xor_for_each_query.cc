@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include <functional>
 #include <numeric>
 #include <vector>
 
@@ -9,15 +10,11 @@ class Solution {
   std::vector<int> getMaximumXor(std::vector<int>& nums, int maximum_bit) {
     std::vector<int> ans;
     ans.reserve(nums.size());
-    int xor_sum =
-        std::accumulate(nums.begin() + 1, nums.end(), *nums.begin(),
-                        [](const int a, const int b) { return a ^ b; });
+    int xor_sum = std::accumulate(nums.begin() + 1, nums.end(), *nums.begin(),
+                                  std::bit_xor<>{});
+    const uint32_t mask = (1 << maximum_bit) - 1;
     for (auto it = nums.rbegin(); it != nums.rend(); ++it) {
-      uint32_t k_max = 0;
-      for (int i = 0; i < maximum_bit; ++i) {
-        k_max |= 1 << i;
-      }
-      k_max ^= xor_sum;
+      uint32_t k_max = xor_sum ^ mask;
       ans.push_back(static_cast<int>(k_max));
       xor_sum ^= *it;
     }
