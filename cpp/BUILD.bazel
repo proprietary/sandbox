@@ -792,3 +792,24 @@ cc_test(
         "//:test_case_helper",
     ],
 )
+
+cc_test(
+    name = "minimum_array_end",
+    srcs = [
+        "com_leetcode_problems_minimum_array_end.cc",
+    ],
+    copts = [
+        "-std=c++23",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest_main",
+        "@fmt//:fmt",
+        "//:test_case_helper",
+    ],
+)
