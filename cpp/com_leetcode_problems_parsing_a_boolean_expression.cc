@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <cassert>
+#include <stack>
 #include <string>
 #include <string_view>
 
@@ -80,6 +81,59 @@ class Solution {
     expr_ = expression;
     return clause();
   }
+
+  bool iterative(std::string expression) {
+    if (expression.length() == 1) {
+      return expression.front() == 't';
+    }
+    std::stack<char> s;
+    for (auto c = expression.rbegin(); c != expression.rend(); ++c) {
+      switch (*c) {
+        case ',':
+        case '(':
+          break;
+        case ')':
+          s.push(*c);
+          break;
+        case 'f':
+        case 't':
+          s.push(*c);
+          break;
+        case '|': {
+          bool b = s.top() == 't';
+          s.pop();
+          while (s.top() != ')') {
+            b = b || (s.top() == 't');
+            s.pop();
+          }
+          s.pop();  // remove ')'
+          s.push(b ? 't' : 'f');
+          break;
+        }
+        case '&': {
+          bool b = s.top() == 't';
+          s.pop();
+          while (s.top() != ')') {
+            b = b && (s.top() == 't');
+            s.pop();
+          }
+          s.pop();  // remove ')'
+          s.push(b ? 't' : 'f');
+          break;
+        }
+        case '!': {
+          bool b = !(s.top() == 't');
+          s.pop();
+          s.pop();  // remove ')'
+          s.push(b ? 't' : 'f');
+          break;
+        }
+        default:
+          assert(false);
+      }
+    }
+    return s.top() == 't';
+  }
 };
 
 struct TV {
@@ -96,11 +150,17 @@ TEST_P(ParamTest, Examples) {
   EXPECT_EQ(tv.expected, actual);
 }
 
+TEST_P(ParamTest, Iterative) {
+  auto tv = GetParam();
+
+  auto actual = Solution().iterative(tv.expression);
+  EXPECT_EQ(tv.expected, actual);
+}
+
 static auto TEST_CASES = {
-    TV{"&(|(f))", false},
-    TV{"|(f,f,f,t)", true},
-    TV{"!(&(f,t))", true},
-    TV{"|(&(t,f,t),t)", true},
+    TV{"&(|(f))", false},  TV{"|(f,f,f,t)", true},
+    TV{"!(&(f,t))", true}, TV{"|(&(t,f,t),t)", true},
+    TV{"&(t,f)", false},   TV{"|(&(t,f,t),!(t))", false},
 };
 
 INSTANTIATE_TEST_SUITE_P(Suite, ParamTest, ::testing::ValuesIn(TEST_CASES));
