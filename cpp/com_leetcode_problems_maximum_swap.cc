@@ -7,6 +7,27 @@
 namespace {
 class Solution {
   public:
+  int maximumSwap3(int num) {
+    std::string n = std::to_string(num);
+    const size_t N = n.size();
+    if (N == 1) {
+      return num;
+    }
+    size_t swap_1 = N - 1;
+    size_t swap_2 = N - 1;
+    size_t max_idx = N - 1;
+    for (size_t i = N - 2; i < static_cast<size_t>(-1); --i) {
+      if (n[i] > n[max_idx]) {
+        max_idx = i;
+      } else if (n[i] < n[max_idx]) {
+        swap_1 = i;
+        swap_2 = max_idx;
+      }
+    }
+    std::swap(n[swap_1], n[swap_2]);
+    return std::stoi(n);
+  }
+
   int maximumSwap2(int num) {
     std::string n = std::to_string(num);
     const size_t N = n.size();
@@ -70,6 +91,13 @@ TEST_P(ParamTest, Solution2) {
   EXPECT_EQ(tv.expected, actual);
 }
 
+TEST_P(ParamTest, Solution3) {
+  auto tv = GetParam();
+
+  auto actual = Solution().maximumSwap3(tv.num);
+  EXPECT_EQ(tv.expected, actual);
+}
+
 static auto TEST_CASES = {
     TV{2736, 7236},
     TV{9973, 9973},
@@ -93,6 +121,14 @@ static void run_solution2(::benchmark::State& state) {
   state.SetComplexityN(state.range(0));
 }
 BENCHMARK(run_solution2)->Range(1, 100000000)->Complexity();
+
+static void run_solution3(::benchmark::State& state) {
+  for (auto _ : state) {
+    benchmark::DoNotOptimize(Solution().maximumSwap3(state.range(0)));
+  }
+  state.SetComplexityN(state.range(0));
+}
+BENCHMARK(run_solution3)->Range(1, 100000000)->Complexity();
 
 }  // namespace
 
