@@ -892,7 +892,8 @@ cc_test(
         "-fsanitize=address,undefined",
     ],
     deps = [
-        "@googletest//:gtest_main",
+        "@googletest//:gtest",
+        "@google_benchmark//:benchmark",
         "@fmt//:fmt",
         "//:test_case_helper",
     ],
