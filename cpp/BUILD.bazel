@@ -961,3 +961,24 @@ cc_test(
         "//:test_case_helper",
     ],
 )
+
+cc_test(
+    name = "shortest_subarray_to_be_removed_to_make_array_sorted",
+    srcs = [
+        "com_leetcode_problems_shortest_subarray_to_be_removed_to_make_array_sorted.cc",
+    ],
+    copts = [
+        "-std=c++23",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest",
+        "@fmt//:fmt",
+        "//:test_case_helper",
+    ],
+)
