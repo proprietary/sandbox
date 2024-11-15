@@ -136,7 +136,7 @@ int main(int argc, char* argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   ::benchmark::Initialize(&argc, argv);
 
-  ::benchmark::RunSpecifiedBenchmarks();
+  // ::benchmark::RunSpecifiedBenchmarks();
 
   return RUN_ALL_TESTS();
 }

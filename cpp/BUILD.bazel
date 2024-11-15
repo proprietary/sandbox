@@ -940,3 +940,24 @@ cc_test(
         "//:test_case_helper",
     ],
 )
+
+cc_test(
+    name = "minimized_maximum_of_products_distributed_to_any_store",
+    srcs = [
+        "com_leetcode_problems_minimized_maximum_of_products_distributed_to_any_store.cc",
+    ],
+    copts = [
+        "-std=c++23",
+        "-O0",
+        "-g3",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest",
+        "@fmt//:fmt",
+        "//:test_case_helper",
+    ],
+)
