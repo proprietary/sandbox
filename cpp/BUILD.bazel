@@ -1005,3 +1005,25 @@ cc_test(
         "//:test_case_helper",
     ],
 )
+
+cc_test(
+    name = "find_the_power_of_k-size_subarrays_i",
+    srcs = [
+        "com_leetcode_problems_find_the_power_of_k-size_subarrays_i.cc",
+    ],
+    copts = [
+        "-std=c++23",
+        "-O0",
+        "-g3",
+        "-Wall",
+        "-Werror",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest",
+        "@fmt//:fmt",
+    ],
+)
