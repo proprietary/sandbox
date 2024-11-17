@@ -7,19 +7,24 @@ class Solution {
   public:
   std::vector<int> resultsArray(std::vector<int>& nums, int k) {
     const auto n = nums.size();
-    std::vector<int> results(n - k + 1);
-    for (int i = 0; i < n - k + 1; ++i) {
-      for (int j = i + 1; j < i + k; ++j) {
-        if (nums[j - 1] + 1 != nums[j]) {
-          goto neg;
-        }
+    std::vector<int> streaks(n);
+    streaks[0] = 1;
+    for (size_t i = 1; i < n; ++i) {
+      const bool is_consecutive = nums[i - 1] + 1 == nums[i];
+      if (is_consecutive) {
+        streaks[i] = streaks[i - 1] + 1;
+      } else {
+        streaks[i] = 1;
       }
-      goto pos;
-    neg:
-      results[i] = -1;
-      continue;
-    pos:
-      results[i] = nums[i + k - 1];
+    }
+    std::vector<int> results;
+    results.reserve(n - k + 1);
+    for (size_t i = k - 1; i < n; ++i) {
+      if (streaks[i] >= k) {
+        results.push_back(nums[i]);
+      } else {
+        results.push_back(-1);
+      }
     }
     return results;
   }
