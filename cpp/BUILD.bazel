@@ -1071,3 +1071,25 @@ cc_test(
         "@fmt//:fmt",
     ],
 )
+
+cc_test(
+    name = "maximum_sum_of_distinct_subarrays_with_length_k",
+    srcs = [
+        "com_leetcode_problems_maximum_sum_of_distinct_subarrays_with_length_k.cc",
+    ],
+    copts = [
+        "-std=c++23",
+        "-O0",
+        "-g3",
+        "-Wall",
+        "-Werror",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest",
+        "@fmt//:fmt",
+    ],
+)
