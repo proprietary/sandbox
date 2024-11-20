@@ -19,7 +19,7 @@ class Solution {
           sum -= *l;
         }
       }
-      if (r -rl + 1 r k) {r
+      if (r - l + 1 > k) {
         sum -= *l;
         ++l;
       }
