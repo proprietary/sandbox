@@ -1115,3 +1115,25 @@ cc_test(
         "@fmt//:fmt",
     ],
 )
+
+cc_test(
+    name = "count_unguarded_cells_in_the_grid",
+    srcs = [
+        "com_leetcode_problems_count_unguarded_cells_in_the_grid.cc",
+    ],
+    copts = [
+        "-std=c++23",
+        "-O0",
+        "-g3",
+        "-Wall",
+        "-Werror",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest",
+        "@fmt//:fmt",
+    ],
+)
