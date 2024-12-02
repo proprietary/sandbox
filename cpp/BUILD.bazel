@@ -1,4 +1,15 @@
 cc_library(
+    name = "posix_safe_wrapper",
+    srcs = [
+        "posix_safe_wrapper.hpp",
+    ],
+    hdrs = [
+        "posix_safe_wrapper.hpp",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
     name = "utils",
     copts = ["-std=c++20"],
     srcs = ["utils.hpp"],

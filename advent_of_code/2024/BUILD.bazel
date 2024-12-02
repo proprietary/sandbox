@@ -1,3 +1,3 @@
-load("//advent_of_code:cxx_aoc_day.bzl", "define_day")
+load("//advent_of_code:build_defs.bzl", "define_day")
 
 define_day(1)
