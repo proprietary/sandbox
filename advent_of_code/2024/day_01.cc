@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 int main(int argc, char *argv[], char *envp[]) {
@@ -26,13 +27,28 @@ int main(int argc, char *argv[], char *envp[]) {
   std::ranges::sort(left_column);
   std::ranges::sort(right_column);
 
-  int ans = 0;
+  int part_1 = 0;
 
   for (size_t i = 0; i < left_column.size(); ++i) {
-    ans += std::abs(left_column[i] - right_column[i]);
+    part_1 += std::abs(left_column[i] - right_column[i]);
   }
 
-  std::cout << ans;
+  // part 1
+  std::cout << part_1 << '\n';
+
+  std::unordered_map<int, int> right_column_frequency;
+  right_column_frequency.reserve(right_column.size());
+  for (const int x : right_column) {
+    right_column_frequency[x]++;
+  }
+
+  int64_t similarity_score = 0;
+  for (const int x : left_column) {
+    similarity_score += x * right_column_frequency[x];
+  }
+
+  // part 2
+  std::cout << similarity_score << '\n';
 
   return 0;
 }
