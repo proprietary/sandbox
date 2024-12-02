@@ -1,3 +1,4 @@
 load("//advent_of_code:build_defs.bzl", "define_day")
 
 define_day(1)
+define_day(2)
