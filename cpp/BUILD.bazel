@@ -33,7 +33,7 @@ cc_library(
         "tree_node.hpp",
     ],
     deps = [
-        "//:arena"
+        ":arena"
     ],
 )
 
@@ -223,7 +223,7 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -243,7 +243,7 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -256,14 +256,15 @@ cc_test(
         "-std=c++20",
         "-O0",
         "-g3",
-        "-fsanitize=address,undefined",
+
+     "-fsanitize=address,undefined",
     ],
     linkopts = [
         "-fsanitize=address,undefined",
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -283,8 +284,8 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
-        "//:utils",
+        ":test_case_helper",
+        ":utils",
     ],
 )
 
@@ -304,8 +305,8 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
-        "//:utils",
+        ":test_case_helper",
+        ":utils",
     ],
 )
 
@@ -325,8 +326,8 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
-        "//:utils",
+        ":test_case_helper",
+        ":utils",
     ],
 )
 
@@ -346,7 +347,7 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -366,7 +367,7 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -386,7 +387,7 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -406,7 +407,7 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -426,8 +427,8 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
-        "//:utils",
+        ":test_case_helper",
+        ":utils",
     ],
 )
 
@@ -447,8 +448,8 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
-        "//:utils",
+        ":test_case_helper",
+        ":utils",
     ],
 )
 
@@ -487,7 +488,7 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper"
+        ":test_case_helper"
     ],
 )
 
@@ -507,7 +508,7 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper"
+        ":test_case_helper"
     ],
 )
 
@@ -527,8 +528,8 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
-        "//:utils",
+        ":test_case_helper",
+        ":utils",
     ],
 )
 
@@ -548,7 +549,7 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -568,7 +569,7 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -588,7 +589,7 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
+        ":test_case_helper",
         "@fmt//:fmt",
     ],
 )
@@ -706,7 +707,7 @@ cc_test(
     deps = [
         "@googletest//:gtest_main",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -727,7 +728,7 @@ cc_test(
     deps = [
         "@googletest//:gtest_main",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -748,7 +749,7 @@ cc_test(
     deps = [
         "@googletest//:gtest_main",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -768,7 +769,7 @@ cc_test(
     ],
     deps = [
         "@googletest//:gtest_main",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -789,7 +790,7 @@ cc_test(
     deps = [
         "@googletest//:gtest_main",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -810,7 +811,7 @@ cc_test(
     deps = [
         "@googletest//:gtest_main",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -831,7 +832,7 @@ cc_test(
     deps = [
         "@googletest//:gtest_main",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -852,7 +853,7 @@ cc_test(
     deps = [
         "@googletest//:gtest_main",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -873,7 +874,7 @@ cc_test(
     deps = [
         "@googletest//:gtest_main",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -895,7 +896,7 @@ cc_test(
         "@googletest//:gtest",
         "@google_benchmark//:benchmark",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -916,7 +917,7 @@ cc_test(
     deps = [
         "@googletest//:gtest",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -937,7 +938,7 @@ cc_test(
     deps = [
         "@googletest//:gtest",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -958,7 +959,7 @@ cc_test(
     deps = [
         "@googletest//:gtest",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -979,7 +980,7 @@ cc_test(
     deps = [
         "@googletest//:gtest",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
@@ -1002,7 +1003,7 @@ cc_test(
     deps = [
         "@googletest//:gtest",
         "@fmt//:fmt",
-        "//:test_case_helper",
+        ":test_case_helper",
     ],
 )
 
