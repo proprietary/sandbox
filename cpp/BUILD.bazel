@@ -1325,3 +1325,25 @@ cc_test(
         "@fmt//:fmt",
     ],
 )
+
+cc_test(
+    name = "minimum_limit_of_balls_in_a_bag",
+    srcs = [
+        "com_leetcode_problems_minimum_limit_of_balls_in_a_bag.cc",
+    ],
+    copts = [
+        "-std=c++23",
+        "-O0",
+        "-g3",
+        "-Wall",
+        "-Werror",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest",
+        "@fmt//:fmt",
+    ],
+)
