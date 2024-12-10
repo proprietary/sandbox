@@ -1,0 +1,19 @@
+[==========] Running 3 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 2 tests from Part1
+[ RUN      ] Part1.ExpandLine
+[       OK ] Part1.ExpandLine (0 ms)
+[ RUN      ] Part1.Example
+[       OK ] Part1.Example (0 ms)
+[----------] 2 tests from Part1 (0 ms total)
+
+[----------] 1 test from Part2
+[ RUN      ] Part2.Example
+[       OK ] Part2.Example (0 ms)
+[----------] 1 test from Part2 (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 2 test suites ran. (0 ms total)
+[  PASSED  ] 3 tests.
+6258319840548
+6286182965311
