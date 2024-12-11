@@ -1347,3 +1347,25 @@ cc_test(
         "@fmt//:fmt",
     ],
 )
+
+cc_test(
+    name = "maximum_beauty_of_an_array_after_applying_operation",
+    srcs = [
+        "com_leetcode_problems_maximum_beauty_of_an_array_after_applying_operation.cc",
+    ],
+    copts = [
+        "-std=c++23",
+        "-O0",
+        "-g3",
+        "-Wall",
+        "-Werror",
+        "-fsanitize=address,undefined",
+    ],
+    linkopts = [
+        "-fsanitize=address,undefined",
+    ],
+    deps = [
+        "@googletest//:gtest",
+        "@fmt//:fmt",
+    ],
+)
