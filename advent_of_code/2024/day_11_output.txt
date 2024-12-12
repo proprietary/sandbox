@@ -1,12 +1,2 @@
-[==========] Running 1 test from 1 test suite.
-[----------] Global test environment set-up.
-[----------] 1 test from Part1
-[ RUN      ] Part1.Blinks
-[       OK ] Part1.Blinks (1 ms)
-[----------] 1 test from Part1 (1 ms total)
-
-[----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (1 ms total)
-[  PASSED  ] 1 test.
 172484
 205913561055242

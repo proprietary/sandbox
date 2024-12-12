@@ -2,12 +2,15 @@
 
 #include <algorithm>
 #include <cassert>
+#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
+
+#include "tools/cpp/runfiles/runfiles.h"
 
 namespace {
 
@@ -96,6 +99,8 @@ uint64_t count_after_blinks(const std::vector<uint64_t>& stones,
   return res;
 }
 
+bazel::tools::cpp::runfiles::Runfiles* runfiles;
+
 constexpr std::string EXAMPLE = "125 17";
 
 TEST(Part1, Blinks) {
@@ -109,10 +114,24 @@ TEST(Part1, Blinks) {
   ASSERT_EQ(count_after_blinks(stones, 25), 55312);
 }
 
+TEST(AoC, Input) {
+  std::ifstream f{
+      runfiles->Rlocation("_main/advent_of_code/2024/day_11_input.txt")};
+  const auto stones = parse(f);
+  ASSERT_EQ(count_after_blinks(stones, 25), 172484);
+  ASSERT_EQ(count_after_blinks(stones, 75), 205913561055242);
+}
+
 }  // namespace
 
 int main(int argc, char* argv[]) {
+  std::string error;
+  runfiles = bazel::tools::cpp::runfiles::Runfiles::Create(argv[0], &error);
+  assert(runfiles);
   ::testing::InitGoogleTest(&argc, argv);
+  ::testing::TestEventListeners& listeners =
+      testing::UnitTest::GetInstance()->listeners();
+  delete listeners.Release(listeners.default_result_printer());
   assert(RUN_ALL_TESTS() == 0);
   auto stones = parse(std::cin);
   std::cout << count_after_blinks(stones, 25) << '\n';
