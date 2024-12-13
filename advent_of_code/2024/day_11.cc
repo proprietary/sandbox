@@ -130,7 +130,7 @@ int main(int argc, char* argv[]) {
   assert(runfiles);
   ::testing::InitGoogleTest(&argc, argv);
   ::testing::TestEventListeners& listeners =
-      testing::UnitTest::GetInstance()->listeners();
+      ::testing::UnitTest::GetInstance()->listeners();
   delete listeners.Release(listeners.default_result_printer());
   assert(RUN_ALL_TESTS() == 0);
   auto stones = parse(std::cin);
