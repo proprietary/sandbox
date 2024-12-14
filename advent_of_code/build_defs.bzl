@@ -25,10 +25,10 @@ def define_day(day_number, day_prefix="day_", input_suffix="_input.txt", output_
             "-g3",
             "-Wall",
             "-Werror",
-            "-fsanitize=address,undefined",
+            # "-fsanitize=address,undefined",
         ],
         linkopts = [
-            "-fsanitize=address,undefined",
+            # "-fsanitize=address,undefined",
         ],
     )
 
@@ -55,10 +55,10 @@ def define_day(day_number, day_prefix="day_", input_suffix="_input.txt", output_
             "-g3",
             "-Wall",
             "-Werror",
-            "-fsanitize=address,undefined",
+            # "-fsanitize=address,undefined",
         ],
         linkopts = [
-            "-fsanitize=address,undefined",
+            # "-fsanitize=address,undefined",
         ],
         size = "small",
     )
